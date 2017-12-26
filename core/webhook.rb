@@ -1,6 +1,7 @@
 require 'sinatra/base'
+require 'net/http'
 require 'json'
-require 'fileutils'
+require 'uri'
 
 module TBot
     class Webhook < Sinatra::Base
@@ -11,17 +12,19 @@ module TBot
 	end
 
 	post '/' do
-	    tmp_dir = File.join(File.dirname(File.dirname(__FILE__)), 'tmp')
-	    unless File.directory?(tmp_dir)
-		'No TMP, Making One....'
-	        FileUtils.mkdir_p(tmp_dir)
+	    webhook_request = JSON.parse(request.env["rack.input"].read)
+	    if webhook_request.has_key? 'message'
+	        sendResponse(webhook_request['message']['chat']['id'], webhook_request['message'].to_json)
+	    else
+	        "Invalid Request!"
 	    end
-            values = JSON.parse(request.env["rack.input"].read)
-	    File.open(File.join(tmp_dir, 'webhook_input.log'), 'w') { |log| log.write(values) }
-	    'Done..'
 	end
 
-	def sendResponse()
+	def sendResponse(target_chat, message)
+	    uri = URI.parse(config.api_url + 'sendMessage')
+	    headers = {"Content-Type" => "application/json"}
+            http = Net::HTTP.new(uri.host, uri.port)
+	    result = http.post(uri.path, message, headers)
 	end
     end
 end
