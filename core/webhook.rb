@@ -14,7 +14,7 @@ module TBot
 	post '/' do
 	    webhook_request = JSON.parse(request.env["rack.input"].read)
 	    if webhook_request.has_key? 'message'
-                sendResponse(webhook_request['message']['chat']['id'], JSON.pretty_generate(webhook_request))
+	        sendResponse(webhook_request['message']['chat']['id'], JSON.pretty_generate(webhook_request))
 	    else
 	        "Invalid Request!"
 	    end
@@ -29,8 +29,16 @@ module TBot
 	    headers = {"Content-Type" => "application/json"}
             http = Net::HTTP.new(uri.host, uri.port)
 	    response_json = {"chat_id": target_chat, "text": '```' + message + '```', "parse_mode": "markdown"}.to_json
-	    puts response_json
 	    result = http.post(uri.path, response_json, headers)
+
+	    puts "DEBUG RESPONSE\n==============================="
+	    puts result.header
+	    puts result.body
+	    puts "============================="
+	    puts "GIVEN JSON RESPONSE:"
+	    puts response_json
+	    puts "============================="
+	    puts "TARGET API: " + uri.to_s
 	end
     end
 end
