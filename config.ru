@@ -1,4 +1,7 @@
 
+# HEROKU DEBUGGING OPTION
+$stdout.sync = true
+
 core_dir =  File.join(File.dirname(__FILE__), 'core')
 
 require File.join(File.dirname(__FILE__), 'config/tbot')
