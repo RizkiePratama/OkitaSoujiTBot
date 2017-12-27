@@ -21,7 +21,7 @@ module TBot
 	end
 
 	def sendResponse(target_chat, message)
-	    uri = URI.parse(config.api_url + 'sendMessage')
+	    uri = URI.parse(Config.api_url + 'sendMessage')
 	    headers = {"Content-Type" => "application/json"}
             http = Net::HTTP.new(uri.host, uri.port)
 	    result = http.post(uri.path, message, headers)

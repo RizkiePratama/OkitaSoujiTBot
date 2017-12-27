@@ -1,7 +1,9 @@
 
 require 'ostruct'
 
-config = OpenStruct.new
+module TBot
+    Config = OpenStruct.new
 
-#
-config.api_url = 'https://api.telegram.org/bot' + ENV['BOT_TOKEN'] + '/' 
+    #
+    Config.api_url = 'https://api.telegram.org/bot' + ENV['BOT_TOKEN'] + '/' 
+end
