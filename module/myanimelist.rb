@@ -12,10 +12,12 @@ module TBotModule
         Config.module.myanimelist.auth_pass
       )
 
-      if xml != false
+      if xml == false
+        return false
+      else
         parsed = XmlSimple.xml_in(xml)
         answers = []
-        parsed['entry'].each do |entry|
+        parsed['entry'][1..5].each do |entry|
           case type
           when'anime'
             jikan = Jikan::anime entry['id'][0]
@@ -52,9 +54,6 @@ module TBotModule
         end
         return answers
       end
-    end
-
-    def self.get_info(id,type)
     end
   end
 end
