@@ -14,7 +14,7 @@ module TBot
 
         response = http.request(request)
         if response.kind_of?(Net::HTTPSuccess) && response.code == '200'
-            return response.body
+          return response.body
         else
           return false
         end
@@ -28,10 +28,12 @@ module TBot
 
         request = Net::HTTP::Post.new(uri.path, 'Content-Type' => type)
         request.body = req.to_json
-
         response = http.request(request)
-        puts response.body
-        return response.kind_of?(Net::HTTPSuccess) && response.code == '200'
+        if response.kind_of?(Net::HTTPSuccess) && response.code == '200'
+          return response.body
+        else
+          return false
+        end
       end
 
     end
