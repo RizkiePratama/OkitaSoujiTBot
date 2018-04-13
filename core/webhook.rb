@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require 'xmlsimple'
 require './core/helper/http'
-require './module/myanimelist.rb'
+require './module/anilist.rb'
 
 require_relative 'inline'
 require_relative 'message'
@@ -22,7 +22,7 @@ module TBot
       if payload.key?('inline_query')
         inline = TBot::Inline.new(payload['inline_query'])
 
-        inline.answers = TBotModule::MyAnimeList::search('anime',inline.request['query'])
+        inline.answers = TBotModule::Anilist::search('anime',inline.request['query'])
         if inline.answers == false
           inline.send_empty_response
         else
