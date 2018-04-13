@@ -17,7 +17,7 @@ module TBotModule
       else
         parsed = XmlSimple.xml_in(xml)
         answers = []
-        parsed['entry'][1..5].each do |entry|
+        parsed['entry'].each do |entry|
           case type
           when'anime'
             jikan = Jikan::anime entry['id'][0]
