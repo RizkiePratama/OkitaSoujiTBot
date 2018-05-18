@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'xmlsimple'
 require './core/helper/http'
 require './module/anilist.rb'
+require './module/instawalker.rb'
 
 require_relative 'inline'
 require_relative 'message'
@@ -20,8 +21,19 @@ module TBot
       # FETCH REQUEST
       # Is it Message or Inline?
       if payload.key?('inline_query')
-        inline = TBot::Inline.new(payload['inline_query'])
 
+        # If Requesting Instagram Module from Inline Query
+        if inline.request['query'].include?("instagram")
+          inline.answers = TBotModule::InstaWalker::getFeed(inline.request['query'].gsub(/\s+/m, ' ').strip.split(" ")[1])
+          if inline.answers == false
+            inline.send_empty_response
+          else
+            inline.send_response
+          end
+          return true
+        end
+
+        # DEFAULT, Perform Anime Query
         inline.answers = TBotModule::Anilist::search('anime',inline.request['query'])
         if inline.answers == false
           inline.send_empty_response

@@ -1,9 +1,9 @@
 defaults: &defaults
-  token: #TELEGRAM BOT AUTH TOKEN
+  token:
   module:
     myanimelist:
-      auth_user: # MAL AUTH USER 
-      auth_pass: # MALL AUTH PASSWORD
+      auth_user:
+      auth_pass:
 
 development:
   <<: *defaults

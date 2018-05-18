@@ -15,7 +15,8 @@ module TBot
         {
           "inline_query_id" => @request['id'],
           "results" => @answers,
-          "is_personal" => true
+          "is_personal" => true,
+           "cache_time" => 0
         }
       )
     end
@@ -39,6 +40,16 @@ module TBot
         "description" => "Who Are You? You did'nt have rights to use me!",
         "input_message_content" => { "message_text" => "As i said earlier, I Don't admit you as my master!", "parse_mode" => "html"},
       }]
+      # LOG THIS
+      open('AccessLog.txt', 'a') { |ss|
+        ss << "Someone else trying to Command Me:\n"
+        ss << "User ID: #{request['from']['id']}\n"
+        ss << "Display Name: #{request['from']['first_name']} #{request['from']['last_name']}\n"
+        ss << "Username: #{request['from']['username']}\n"
+        ss << "Query: #{request['query']}\n"
+        ss << "----------------------------------\n"
+      }
+
       send_response
     end
   end
