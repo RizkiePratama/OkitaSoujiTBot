@@ -4,8 +4,8 @@ require "json"
 module TBotModule
   class InstaWalker
     def self.getFeed(uname)
-      if uname.nil?
-        return false
+      if uname.nil? || uname.empty?
+        return nil
       end
 
       feed = TBot::Helper::HTTP::get(
@@ -14,7 +14,7 @@ module TBotModule
       
       data = JSON::parse(feed)
       if data == nil || data.empty?
-        return false
+        return nil
       end
 
       answers = []
@@ -24,7 +24,7 @@ module TBotModule
           "id" => answers.count,
           "photo_url" => res['display_url'],
           "thumb_url" => res['thumbnail_src'],
-          "caption" => res['caption']['text'].nil? ? "" : res['caption']['text'][0..180].gsub(/<("[^"]*"|'[^']*'|[^'">])*>/," ").gsub(/\s\w+$/,"..."),
+          "caption" => res['caption'].nil? || res['caption']['text'].nil? ? "" : res['caption']['text'][0..180].gsub(/<("[^"]*"|'[^']*'|[^'">])*>/," ").gsub(/\s\w+$/,"..."),
           "reply_markup" => {
             "inline_keyboard"=>[[{"text"=>"Check on Instagram", "url"=>res['link']}]]
           }
