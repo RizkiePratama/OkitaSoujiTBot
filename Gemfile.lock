@@ -20,8 +20,8 @@ GEM
     json (2.1.0)
     mustermann (1.0.2)
     public_suffix (3.0.2)
-    rack (2.0.4)
-    rack-protection (2.0.1)
+    rack (2.0.5)
+    rack-protection (2.0.2)
       rack
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
@@ -37,10 +37,10 @@ GEM
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
     settingslogic (2.0.9)
-    sinatra (2.0.1)
+    sinatra (2.0.2)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.1)
+      rack-protection (= 2.0.2)
       tilt (~> 2.0)
     tilt (2.0.8)
     unf (0.1.4)
@@ -56,8 +56,8 @@ DEPENDENCIES
   json (~> 2.1)
   rspec (~> 3.6)
   settingslogic
-  sinatra (~> 2.0.1)
+  sinatra (~> 2.0.2)
   xml-simple (~> 1.1, >= 1.1.5)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

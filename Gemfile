@@ -3,7 +3,7 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-gem 'sinatra', '~> 2.0.1'
+gem 'sinatra', '~> 2.0.2'
 gem 'json', '~> 2.1'
 gem 'rspec', '~> 3.6'
 gem 'xml-simple', '~> 1.1', '>= 1.1.5'
