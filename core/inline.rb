@@ -9,14 +9,17 @@ module TBot
     end
 
     def send_response
-      TBot::Helper::HTTP::post(
+      if !answers || @answers.nil? || @answers.empty? 
+        send_empty_response
+        log
+      end
+
+      return TBot::Helper::HTTP::post(
         "https://api.telegram.org/bot#{Config.token}/answerInlineQuery",
         "application/json",
         {
           "inline_query_id" => @request['id'],
           "results" => @answers,
-          "is_personal" => true,
-           "cache_time" => 0
         }
       )
     end
@@ -29,17 +32,9 @@ module TBot
         "description" => "Please try again with another keywords...",
         "input_message_content" => { "message_text" => "Nothing :(", "parse_mode" => "html"},
       }]
-      send_response
     end
 
-    def send_unauthorized_response
-      @answers = [{
-        "type" => "article",
-        "id" => 0,
-        "title" => "I Don't Admit You As My Master!",
-        "description" => "Who Are You? You did'nt have rights to use me!",
-        "input_message_content" => { "message_text" => "As i said earlier, I Don't admit you as my master!", "parse_mode" => "html"},
-      }]
+    def log
       # LOG THIS
       open('AccessLog.txt', 'a') { |ss|
         ss << "Someone else trying to Command Me:\n"

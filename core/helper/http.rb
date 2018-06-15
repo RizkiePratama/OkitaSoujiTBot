@@ -29,6 +29,8 @@ module TBot
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
         request = Net::HTTP::Post.new(uri.path, 'Content-Type' => type)
+        request.body = req.to_json
+	
         response = http.request(request)
         if response.kind_of?(Net::HTTPSuccess) && response.code == '200'
           return response.body
